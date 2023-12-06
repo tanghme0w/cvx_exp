@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import cvxpy as cp
 import numpy as np
 from scipy.io import loadmat
-from imageio import imread
+from imageio.v2 import imread
 
 
 def total_variation(arr):
@@ -27,15 +27,20 @@ def inpaint(corrupted, rows, cols, verbose=False):
     return result
 
 
+target_img = 2
+
+
 def main():
-    mask = loadmat('data/A_1.mat')['matrix']
+    mask = loadmat(f'data/A_{target_img}.mat')['matrix']
     rows, cols = np.where(mask == 0)
-    corrupted = imread('data/corrupted1.png')
+    corrupted = imread(f'data/corrupted{target_img}.png')
     recovered = inpaint(corrupted, rows, cols)
     # plot recovered figure
-    plt.imshow(recovered)
-    plt.savefig('data/recovered1')
-    np.save('data/recovered1.mat', recovered)
+    plt.imshow(recovered.astype(np.uint8))
+    plt.axis('off')
+    plt.savefig(f'data/recovered{target_img}')
+    plt.show()
+    np.save(f'data/recovered{target_img}', recovered)
 
 
 if __name__ == '__main__':
