@@ -21,7 +21,9 @@ def eval_ssim(img_file, ref_file):
     return eng.eval_ssim(img, ref, nargout=1)
 
 
+image_type = "recovered"
+# image_type = "baseline_rec"
 target_img = 1
-p_total, p_mask = eval_psnr(f'data/recovered{target_img}.png', f'data/figure{target_img}.png', f'data/A_{target_img}')
-ssim_total = eval_ssim(f'data/recovered{target_img}.png', f'data/figure{target_img}.png')
+p_total, p_mask = eval_psnr(f'data/{image_type}{target_img}.png', f'data/figure{target_img}.png', f'data/A_{target_img}')
+ssim_total = eval_ssim(f'data/{image_type}{target_img}.png', f'data/figure{target_img}.png')
 print(f'psnr_total: {p_total}, psnr_mask: {p_mask}, ssim_total: {ssim_total}')
