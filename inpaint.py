@@ -3,6 +3,7 @@ import numpy as np
 from scipy.io import loadmat
 from imageio.v2 import imread
 from PIL import Image
+from render import render
 
 
 def total_variation(arr):
@@ -35,10 +36,8 @@ def main():
     rows, cols = np.where(mask == 0)
     corrupted = imread(f'data/corrupted{target_img}.png')
     recovered = inpaint(corrupted, rows, cols)
-    # plot recovered figure
-    recovered_img = Image.fromarray(recovered.astype(np.uint8))
-    recovered_img.save(f'data/recovered{target_img}')
-    np.save(f'data/recovered{target_img}', recovered)
+    # render recovered image
+    render(target_img, recovered)
 
 
 if __name__ == '__main__':
