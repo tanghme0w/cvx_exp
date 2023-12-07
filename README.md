@@ -6,7 +6,7 @@ Create a directory named 'data' in the repository. Put all experiment materials 
 
 Tree:
 ```text
-cvx
+cvx_exp
 ├── data
 │   ├── A_1.mat
 │   ├── A_2.mat
