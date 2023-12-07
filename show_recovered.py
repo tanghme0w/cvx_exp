@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+from PIL import Image
 import numpy as np
 
 
@@ -8,7 +8,5 @@ target_img = 1
 recovered_img = np.load(f'data/recovered{target_img}.npy')
 print(recovered_img)
 
-plt.imshow(recovered_img.astype(np.uint8))
-plt.axis('off')
-plt.savefig(f'data/recovered{target_img}')
-plt.show()
+image = Image.fromarray(recovered_img.astype(np.uint8))
+image.save(f'data/recovered{target_img}.png')

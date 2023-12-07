@@ -1,8 +1,8 @@
-import matplotlib.pyplot as plt
 import cvxpy as cp
 import numpy as np
 from scipy.io import loadmat
 from imageio.v2 import imread
+from PIL import Image
 
 
 def total_variation(arr):
@@ -13,7 +13,7 @@ def total_variation(arr):
     return cp.sum(norm)
 
 
-def inpaint(corrupted, rows, cols, verbose=False):
+def inpaint(corrupted, rows, cols, verbose=True):
     result = np.zeros(shape=corrupted.shape)
     for channel in range(3):
         corrupted_channel = corrupted[:, :, channel]
@@ -22,12 +22,12 @@ def inpaint(corrupted, rows, cols, verbose=False):
         knowledge = x[rows, cols] == corrupted_channel[rows, cols]
         constraints = [0 <= x, x <= 255, knowledge]
         prob = cp.Problem(objective, constraints)
-        prob.solve(solver=cp.SCS, verbose=verbose)
+        prob.solve(solver=cp.ECOS, verbose=verbose)
         result[:, :, channel] = x.value
     return result
 
 
-target_img = 2
+target_img = 3
 
 
 def main():
@@ -36,10 +36,8 @@ def main():
     corrupted = imread(f'data/corrupted{target_img}.png')
     recovered = inpaint(corrupted, rows, cols)
     # plot recovered figure
-    plt.imshow(recovered.astype(np.uint8))
-    plt.axis('off')
-    plt.savefig(f'data/recovered{target_img}')
-    plt.show()
+    recovered_img = Image.fromarray(recovered.astype(np.uint8))
+    recovered_img.save(f'data/recovered{target_img}')
     np.save(f'data/recovered{target_img}', recovered)
 
 
