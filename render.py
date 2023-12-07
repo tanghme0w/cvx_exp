@@ -3,7 +3,7 @@ import numpy as np
 
 
 def render(target_img, recovered_matrix=None):
-    if recovered_matrix:
+    if recovered_matrix is not None:
         recovered_img = Image.fromarray(recovered_matrix.astype(np.uint8))
         recovered_img.save(f'data/recovered{target_img}.png')
         np.save(f'data/recovered{target_img}', recovered_matrix)
