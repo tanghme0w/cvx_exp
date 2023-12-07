@@ -4,20 +4,4 @@
 
 Create a directory named 'data' in the repository. Put all experiment materials inside it.
 
-Tree:
-```text
-cvx_exp
-├── data
-│   ├── A_1.mat
-│   ├── A_2.mat
-│   ├── A_3.mat
-│   ├── corrupted1.png
-│   ├── corrupted2.png
-│   ├── corrupted3.png
-│   ├── figure1.png
-│   ├── figure2.png
-│   └── figure3.png
-├── inpaint.py
-└── show_recovered.py
-```
-
+Run the inpaint.py to generate recovered picture. You can modify target_img = 1-3.
