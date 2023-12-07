@@ -2,7 +2,6 @@ import cvxpy as cp
 import numpy as np
 from scipy.io import loadmat
 from imageio.v2 import imread
-from PIL import Image
 from render import render
 
 
