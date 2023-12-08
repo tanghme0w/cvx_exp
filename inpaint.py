@@ -17,7 +17,7 @@ def weighted_total_variation(arr, mask, M=1):
     weighted_dx = cp.multiply(dx, w_x)
     weighted_dy = cp.multiply(dy, w_y)
     D = cp.vstack((weighted_dx, weighted_dy))
-    norm = cp.norm(D, p=1, axis=0)
+    norm = cp.norm(D, p=2, axis=0)
     return cp.sum(norm)
 
 
@@ -30,7 +30,7 @@ def inpaint(corrupted, rows, cols, mask, verbose=True):
         knowledge = x[rows, cols] == corrupted_channel[rows, cols]
         constraints = [0 <= x, x <= 255, knowledge]
         prob = cp.Problem(objective, constraints)
-        prob.solve(solver=cp.SCS, verbose=verbose)
+        prob.solve(solver=cp.ECOS, verbose=verbose)
         result[:, :, channel] = x.value
     return result
 
